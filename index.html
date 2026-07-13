@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ulang Tahun Sayangku</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #ffb3d9 0%, #ff69b4 50%, #ff1493 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            position: relative;
+            perspective: 1000px;
+            padding: 40px 0;
+        }
+
+        /* Animasi Pasir Beterbangan */
+        .sand-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .sand-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            animation: fall linear infinite;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) translateX(var(--tx));
+                opacity: 0;
+            }
+        }
+
+        /* Container Utama */
+        .container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            background: linear-gradient(135deg, #ffb3d9 0%, #ffc0d9 50%, #ffb3d9 100%);
+            padding: 60px 40px;
+            border-radius: 30px;
+            box-shadow: 
+                0 20px 60px rgba(255, 105, 180, 0.5),
+                0 30px 80px rgba(255, 20, 147, 0.4),
+                inset -2px -2px 5px rgba(255, 255, 255, 0.5),
+                inset 2px 2px 5px rgba(255, 20, 147, 0.3);
+            max-width: 600px;
+            width: 90%;
+            backdrop-filter: blur(10px);
+            border: 3px solid rgba(255, 20, 147, 0.5);
+            transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+            transition: transform 0.6s ease-out;
+            animation: float3d 6s ease-in-out infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes float3d {
+            0%, 100% {
+                transform: translateY(0px) translateZ(0px);
+            }
+            50% {
+                transform: translateY(-20px) translateZ(30px);
+            }
+        }
+
+        .container:hover {
+            transform: perspective(1000px) rotateX(5deg) rotateY(-5deg) translateZ(20px);
+            box-shadow: 
+                0 40px 100px rgba(255, 105, 180, 0.6),
+                0 50px 120px rgba(255, 20, 147, 0.5),
+                inset -2px -2px 5px rgba(255, 255, 255, 0.6),
+                inset 2px 2px 5px rgba(255, 20, 147, 0.4);
+        }
+
+        /* Header */
+        h1 {
+            color: #ff69b4;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .subtitle {
+            color: #764ba2;
+            font-size: 1.2em;
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+
+        /* Countdown Timer */
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .time-unit {
+            background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+            padding: 25px 30px;
+            border-radius: 15px;
+            color: white;
+            min-width: 100px;
+            box-shadow: 
+                0 15px 35px rgba(255, 105, 180, 0.5),
+                0 20px 45px rgba(255, 20, 147, 0.4),
+                inset -2px -2px 5px rgba(255, 255, 255, 0.2),
+                inset 2px 2px 5px rgba(139, 0, 139, 0.2);
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transform: perspective(800px) rotateX(0deg);
+        }
+
+        .time-unit:hover {
+            transform: perspective(800px) rotateX(-5deg) translateY(-8px) translateZ(10px);
+            box-shadow: 
+                0 25px 50px rgba(255, 105, 180, 0.6),
+                0 30px 60px rgba(255, 20, 147, 0.5),
+                inset -2px -2px 5px rgba(255, 255, 255, 0.3),
+                inset 2px 2px 5px rgba(139, 0, 139, 0.3);
+        }
+
+        .time-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .time-label {
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Tombol Kado */
+        .gift-section {
+            margin-top: 50px;
+        }
+
+        .gift-button {
+            font-size: 80px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            animation: bounce 2s infinite;
+            transition: transform 0.2s ease;
+            filter: drop-shadow(0 5px 15px rgba(255, 105, 180, 0.4));
+        }
+
+        .gift-button:hover {
+            transform: scale(1.1);
+        }
+
+        .gift-button:active {
+            transform: scale(0.95);
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        .gift-text {
+            margin-top: 20px;
+            color: #764ba2;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+
+        /* Modal Ucapan */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 20;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+            margin: 10% auto;
+            padding: 50px 40px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            animation: slideDown 0.5s ease;
+            border: 3px solid #ffb6d9;
+            position: relative;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-content h2 {
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-content p {
+            font-size: 1.2em;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .close {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 30px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .close:hover {
+            transform: scale(1.2);
+        }
+
+        /* Tombol Close */
+        .close-btn {
+            background: white;
+            color: #ff69b4;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1em;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .close-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .close-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Hearts Background */
+        .hearts {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 2em;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .hearts:nth-child(2) {
+            right: 20px;
+            top: 20px;
+            animation-delay: 0.5s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            position: relative;
+            z-index: 10;
+            margin: 60px auto;
+            padding: 40px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .gallery-title {
+            color: #ff1493;
+            font-size: 2em;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .gallery-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 40px;
+            flex-wrap: nowrap;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        .photo-column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            flex: 0 0 auto;
+            min-width: auto;
+            align-items: center;
+        }
+
+        .photo-column.left {
+            align-items: flex-end;
+        }
+
+        .photo-column.right {
+            align-items: flex-start;
+        }
+
+        .photo-column.center {
+            flex: 0 0 auto;
+            align-items: center;
+            justify-content: center;
+            width: auto;
+        }
+
+        .photo-frame {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4em;
+            box-shadow: 
+                0 15px 35px rgba(255, 105, 180, 0.5),
+                0 20px 45px rgba(255, 20, 147, 0.4),
+                inset -2px -2px 5px rgba(255, 255, 255, 0.2),
+                inset 2px 2px 5px rgba(139, 0, 139, 0.2);
+            border: 3px solid rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            transition: all 0.4s ease;
+            overflow: hidden;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .photo-frame::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 17px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .photo-frame.left-1 {
+            animation: float-left-1 4s ease-in-out infinite;
+        }
+
+        .photo-frame.left-2 {
+            animation: float-left-2 4.5s ease-in-out infinite;
+        }
+
+        .photo-frame.left-3 {
+            animation: float-left-3 5s ease-in-out infinite;
+        }
+
+        .photo-frame.left-4 {
+            animation: float-left-4 4.2s ease-in-out infinite;
+        }
+
+        .photo-frame.left-5 {
+            animation: float-left-5 4.8s ease-in-out infinite;
+        }
+
+        .photo-frame.right-1 {
+            animation: float-right-1 4.3s ease-in-out infinite;
+        }
+
+        .photo-frame.right-2 {
+            animation: float-right-2 4.7s ease-in-out infinite;
+        }
+
+        .photo-frame.right-3 {
+            animation: float-right-3 5.1s ease-in-out infinite;
+        }
+
+        .photo-frame.right-4 {
+            animation: float-right-4 4.5s ease-in-out infinite;
+        }
+
+        .photo-frame.right-5 {
+            animation: float-right-5 4.9s ease-in-out infinite;
+        }
+
+        @keyframes float-left-1 {
+            0%, 100% { transform: translateY(0px) rotateZ(-2deg); }
+            50% { transform: translateY(-20px) rotateZ(-2deg); }
+        }
+
+        @keyframes float-left-2 {
+            0%, 100% { transform: translateY(-10px) rotateZ(2deg); }
+            50% { transform: translateY(-30px) rotateZ(2deg); }
+        }
+
+        @keyframes float-left-3 {
+            0%, 100% { transform: translateY(0px) rotateZ(-3deg); }
+            50% { transform: translateY(-25px) rotateZ(-3deg); }
+        }
+
+        @keyframes float-left-4 {
+            0%, 100% { transform: translateY(-5px) rotateZ(1deg); }
+            50% { transform: translateY(-20px) rotateZ(1deg); }
+        }
+
+        @keyframes float-left-5 {
+            0%, 100% { transform: translateY(0px) rotateZ(-1deg); }
+            50% { transform: translateY(-28px) rotateZ(-1deg); }
+        }
+
+        @keyframes float-right-1 {
+            0%, 100% { transform: translateY(-5px) rotateZ(2deg); }
+            50% { transform: translateY(-25px) rotateZ(2deg); }
+        }
+
+        @keyframes float-right-2 {
+            0%, 100% { transform: translateY(0px) rotateZ(-2deg); }
+            50% { transform: translateY(-30px) rotateZ(-2deg); }
+        }
+
+        @keyframes float-right-3 {
+            0%, 100% { transform: translateY(-10px) rotateZ(3deg); }
+            50% { transform: translateY(-20px) rotateZ(3deg); }
+        }
+
+        @keyframes float-right-4 {
+            0%, 100% { transform: translateY(0px) rotateZ(-1deg); }
+            50% { transform: translateY(-26px) rotateZ(-1deg); }
+        }
+
+        @keyframes float-right-5 {
+            0%, 100% { transform: translateY(-8px) rotateZ(2deg); }
+            50% { transform: translateY(-22px) rotateZ(2deg); }
+        }
+
+        .photo-frame:hover {
+            transform: scale(1.1) translateZ(20px);
+            box-shadow: 
+                0 25px 50px rgba(255, 105, 180, 0.6),
+                0 30px 60px rgba(255, 20, 147, 0.5),
+                inset -2px -2px 5px rgba(255, 255, 255, 0.3),
+                inset 2px 2px 5px rgba(139, 0, 139, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .gallery-container {
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            .photo-column.center {
+                flex: 1;
+            }
+
+            .photo-column.left {
+                align-items: center;
+            }
+
+            .photo-column.right {
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 40px 25px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .countdown {
+                gap: 10px;
+            }
+
+            .time-unit {
+                padding: 20px 20px;
+                min-width: 80px;
+            }
+
+            .time-value {
+                font-size: 1.8em;
+            }
+
+            .gift-button {
+                font-size: 60px;
+            }
+
+            .modal-content {
+                padding: 30px 20px;
+                margin: 30% auto;
+            }
+
+            .modal-content h2 {
+                font-size: 1.6em;
+            }
+
+            .modal-content p {
+                font-size: 1em;
+            }
+
+            .gallery-title {
+                font-size: 1.5em;
+            }
+
+            .gallery-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .photo-column {
+                align-items: center !important;
+                width: 100%;
+            }
+
+            .photo-frame {
+                width: 150px;
+                height: 150px;
+                font-size: 3em;
+            }
+
+            .photo-column.center {
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animasi Pasir Beterbangan -->
+    <div class="sand-particles" id="sandContainer"></div>
+
+    <!-- Gallery Section -->
+    <div class="gallery-section">
+        <div class="gallery-container">
+            <!-- Kolom Foto Kiri -->
+            <div class="photo-column left">
+                <!-- FOTO KIRI 1: Ganti URL di bawah -->
+                <div class="photo-frame left-1">
+                    <img src="https://imagizer.imageshack.com/img922/2642/1zq9sn.jpg" alt="Foto 1" onerror="this.style.display='none';">
+                    <span style="position: absolute; font-size: 3em;">📷</span>
+                </div>
+
+                <!-- FOTO KIRI 2: Ganti URL di bawah -->
+                <div class="photo-frame left-2">
+                    <img src="https://imagizer.imageshack.com/img923/4127/uiBvv5.jpg" alt="Foto 2" onerror="this.style.display='none';">
+                    <span style="position: absolute; font-size: 3em;">📷</span>
+                </div>
+
+                <!-- FOTO KIRI 3: Ganti URL di bawah -->
+                <div class="photo-frame left-3">
+                    <img src="https://imagizer.imageshack.com/img923/8198/lr0kCZ.jpg" alt="Foto 3" onerror="this.style.display='none';">
+                    <span style="position: absolute; font-size: 3em;">📷</span>
+                </div>
+
+                <!-- FOTO KIRI 4: Ganti URL di bawah -->
+                <div class="photo-frame left-4">
+                    <img src="https://imagizer.imageshack.com/img922/148/vFRGEY.jpg" alt="Foto 4" onerror="this.style.display='none';">
+                    <span style="position: absolute; font-size: 3em;">📷</span>
+                </div>
+
+                <!-- FOTO KIRI 5: Ganti URL di bawah -->
+                <div class="photo-frame left-5">
+                    <img src="https://imagizer.imageshack.com/img923/2192/hJxg6P.jpg" alt="Foto 5" onerror="this.style.display='none';">
+                    <span style="position: absolute; font-size: 3em;">📷</span>
+                </div>
+            </div>
+
+            <!-- Container Utama (Box Teks) -->
+            <div class="photo-column center">
+                <div class="container">
+                    <div class="hearts">💕</div>
+                    <div class="hearts">💕</div>
+
+                    <h1>✨ Selamat Ulang Tahun Sayangnya Mas ✨</h1>
+                    <p class="subtitle">Countdown untuk Hari Istimewamu</p>
+
+                    <!-- Countdown Timer -->
+                    <div class="countdown">
+                        <div class="time-unit">
+                            <span class="time-value" id="days">0</span>
+                            <span class="time-label">Hari</span>
+                        </div>
+                        <div class="time-unit">
+                            <span class="time-value" id="hours">0</span>
+                            <span class="time-label">Jam</span>
+                        </div>
+                        <div class="time-unit">
+                            <span class="time-value" id="minutes">0</span>
+                            <span class="time-label">Menit</span>
+                        </div>
+                        <div class="time-unit">
+                            <span class="time-value" id="seconds">0</span>
+                            <span class="time-label">Detik</span>
+                        </div>
+                    </div>
+
+                    <!-- Tombol Kado -->
+                    <div class="gift-section">
+                        <button class="gift-button" id="giftBtn">🎁</button>
+                        <p class="gift-text">Klik Kadonya untuk Surprise! 🎉</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kolom Foto Kanan -->
+            <div class="photo-column right">
+                <!-- FOTO KANAN 6: Ganti URL di bawah -->
+                <div class="photo-frame right-1">
+                    <img src="https://imagizer.imageshack.com/img923/2011/bkERJY.jpg" alt="Foto 6" onerror="this.style.display='none';">
+                    <span style="position: absolute; font-size: 3em;">📷</span>
+                </div>
+
+                <!-- FOTO KANAN 7: Ganti URL di bawah -->
+                <div class="photo-frame right-2">
+                    <img src="https://imagizer.imageshack.com/img923/7771/XRiHTV.jpg" alt="Foto 7" onerror="this.style.display='none';">
+                    <span style="position: absolute; font-size: 3em;">📷</span>
+                </div>
+
+                <!-- FOTO KANAN 8: Ganti URL di bawah -->
+                <div class="photo-frame right-3">
+                    <img src="https://imagizer.imageshack.com/img921/7919/vGLjHv.jpg" alt="Foto 8" onerror="this.style.display='none';">
+                    <span style="position: absolute; font-size: 3em;">📷</span>
+                </div>
+
+                <!-- FOTO KANAN 9: Ganti URL di bawah -->
+                <div class="photo-frame right-4">
+                    <img src="https://imagizer.imageshack.com/img923/4733/iV81Xc.jpg" alt="Foto 9" onerror="this.style.display='none';">
+                    <span style="position: absolute; font-size: 3em;">📷</span>
+                </div>
+
+                <!-- FOTO KANAN 10: Ganti URL di bawah -->
+                <div class="photo-frame right-5">
+                    <img src="https://imagizer.imageshack.com/img924/3172/ZX6EfL.jpg" alt="Foto 10" onerror="this.style.display='none';">
+                    <span style="position: absolute; font-size: 3em;">📷</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Ucapan -->
+    <div id="cardModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeCard()">&times;</span>
+            <h2>💕 SELAMAT ULANG TAHUN SAYANGKU💕</h2>
+            <p>Sayangku <strong>YOZA FADZILLA YUDISTIRA</strong></p>
+            <p>Semoga di usia 22 tahun ini sayang jadi pribadi yang lebih baik di semua hal ya dijauhkan dari hal hal yang buruk, rezekinya semakin berlimpah, dan makin sayang keluarga. MAS SAYANG ADEEKK, SAMA MAS TERUS YAAA</p>
+            <p style="font-size: 1.5em; margin: 20px 0;">Cantiknya Mas...</p>
+            <p style="font-size: 1.8em;">LOPYUUUU 💗 KADONYA NYUSUL YA HEHEHEHE MUACHHH</p>
+            <button class="close-btn" onclick="closeCard()">Tutup</button>
+        </div>
+    </div>
+
+    <script>
+        // Fungsi untuk membuat animasi pasir beterbangan
+        function createSandParticles() {
+            const container = document.getElementById('sandContainer');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'sand-particle';
+                
+                const left = Math.random() * 100;
+                const delay = Math.random() * 5;
+                const duration = 8 + Math.random() * 4;
+                const tx = (Math.random() - 0.5) * 100;
+
+                particle.style.left = left + '%';
+                particle.style.top = '-10px';
+                particle.style.animationDelay = delay + 's';
+                particle.style.animationDuration = duration + 's';
+                particle.style.setProperty('--tx', tx + 'px');
+
+                container.appendChild(particle);
+            }
+        }
+
+        // Fungsi untuk menghitung countdown
+        function updateCountdown() {
+            // Ganti dengan tanggal ulang tahun yang sebenarnya
+            // Format: new Date('TAHUN-BULAN-TANGGAL JAM:MENIT:DETIK')
+            const targetDate = new Date('2026-07-14 00:00:00').getTime(); // Ubah sesuai tanggal dan jam asli
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                // Jika sudah lewat
+                document.getElementById('days').textContent = '0';
+                document.getElementById('hours').textContent = '0';
+                document.getElementById('minutes').textContent = '0';
+                document.getElementById('seconds').textContent = '0';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+
+        // Fungsi untuk membuka modal kartu ucapan
+        document.getElementById('giftBtn').addEventListener('click', function() {
+            document.getElementById('cardModal').style.display = 'block';
+            playConfetti();
+        });
+
+        // Fungsi untuk menutup modal
+        function closeCard() {
+            document.getElementById('cardModal').style.display = 'none';
+        }
+
+        // Tutup modal jika klik di luar
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('cardModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Efek confetti sederhana
+        function playConfetti() {
+            const modal = document.querySelector('.modal-content');
+            for (let i = 0; i < 30; i++) {
+                const confetti = document.createElement('div');
+                confetti.style.position = 'absolute';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.top = '-10px';
+                confetti.style.width = '10px';
+                confetti.style.height = '10px';
+                confetti.style.background = ['#ff69b4', '#ff1493', '#ffb6d9', '#ffc0cb'][Math.floor(Math.random() * 4)];
+                confetti.style.borderRadius = '50%';
+                confetti.style.animation = `fall ${2 + Math.random() * 2}s linear forwards`;
+                confetti.style.pointerEvents = 'none';
+                modal.appendChild(confetti);
+
+                setTimeout(() => confetti.remove(), 4000);
+            }
+        }
+
+        // Inisialisasi
+        window.addEventListener('DOMContentLoaded', function() {
+            createSandParticles();
+            updateCountdown();
+            
+            // Update countdown setiap detik
+            setInterval(updateCountdown, 1000);
+        });
+    </script>
+</body>
+</html>
